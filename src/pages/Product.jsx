@@ -3,6 +3,7 @@ import all_product from "../componants/assets/all_product"
 import BreadCrum from "../componants/breadCrum/BreadCrum"
 import { ProductDisplay } from "../componants/productDisplay/ProductDisplay"
 import { DescriptionBox } from "../componants/descriptionBox/DescriptionBox"
+import { RelatedProduct } from "../componants/relatedProduct/RelatedProduct"
 
 export const Product = () => {
 
@@ -14,6 +15,7 @@ export const Product = () => {
         <BreadCrum product={product} />
         <ProductDisplay product={product} />
         <DescriptionBox/>
+        <RelatedProduct/>
       </div>
     </>
   )

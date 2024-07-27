@@ -21,12 +21,11 @@ function App() {
           <Route path='/womens' element={<ShopCategory category="women" banner = "womens"/>} />
           <Route path='/kids' element={<ShopCategory category="kid" banner = "kids"/>} />
           <Route path='/product' element={<Product />} />
-          <Route path=':productId' element={<Product />} />
-          <Route />
+          <Route path='/product/:productId' element={<Product />} />
           <Route path='/cart' element={<Card />} />
           <Route path='/login' element={<LoginSignup />} />
         </Routes>
-        <Footer/>
+        {/* <Footer/> */}
       </BrowserRouter>
     </>
   )

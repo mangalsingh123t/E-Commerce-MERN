@@ -1,9 +1,12 @@
 /* eslint-disable react/prop-types */
 import star_icon from '../assets/star_icon.png'
 import star_dull_icon from '../assets/star_dull_icon.png'
+import { useContext } from 'react'
+import { ShopContext } from '../context/ShopContext'
 
 export const ProductDisplay = (props) => {
     const { product } = props
+  const{addToCart} = useContext(ShopContext)
     return (
         <>
             <div className="grid grid-cols-12 mt-5">
@@ -39,7 +42,7 @@ export const ProductDisplay = (props) => {
                     <button className='text-black py-1 px-3 bg-gray-100 me-1'>XL</button>
                     <button className='text-black py-1 px-3 bg-gray-100 me-1'>XXL</button>
                   </div>
-                  <button className='bg-red-500 px-3 py-2 mt-3'>ADD TO CART</button>
+                  <button className='bg-red-500 px-3 py-2 mt-3' onClick={()=>addToCart(product.id)}>ADD TO CART</button>
                   <div className='mt-3'><span className='font-semibold text-sm '>Category:</span><span className='text-sm'>{product.category}</span></div>
                   <div><span className='font-semibold text-sm'>Tags:</span><span className='text-sm'>Modern Latest</span></div>
                 </div>

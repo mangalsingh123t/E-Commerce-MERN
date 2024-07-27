@@ -6,17 +6,17 @@ export const ProductDisplay = (props) => {
     const { product } = props
     return (
         <>
-            <div className="grid grid-cols-3 ">
-                <div>
+            <div className="grid grid-cols-12">
+                <div className='col-span-1'>
                     <img className="max-w-20 mb-2" src={product.image} alt="product_image" />
                     <img className="max-w-20 mb-2" src={product.image} alt="product_image" />
                     <img className="max-w-20 mb-2" src={product.image} alt="product_image" />
                     <img className="max-w-20 mb-2" src={product.image} alt="product_image" />
                 </div>
-                <div>
+                <div className='col-span-4'>
                     <img src={product.image} alt="product_image" />
                 </div>
-                <div>
+                <div className='col-span-5'>
                   <h1 className="text-2xl font-bold">{product.name}</h1>
                   <div className='flex'>
                     <img src={star_icon} alt="start_icon" />

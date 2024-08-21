@@ -9,9 +9,9 @@ export const Shop = () => {
     <>
     <Hero/>
     <Popular/>
-    <Offers/>
-    <NewCollection/>
-    <NewsLatter/>
+     <Offers/>
+    {/* <NewCollection/>
+    <NewsLatter/>  */}
     </>
   )
 }

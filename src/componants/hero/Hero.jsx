@@ -8,8 +8,8 @@ export const Hero = () => {
     <>
       <div className="grid grid-cols-1  md:grid-cols-2 justify-items-center items-center bg-custom-gradient">
         <div>
-          <p className='font-semibold '>New ARRIVALS ONLY</p>
-          <p className='text-6xl font-semibold'>new
+          <p className='font-semibold md:pt-0 pt-5'>New ARRIVALS ONLY</p>
+          <p className='sm:text-6xl text-4xl font-semibold'>new
             <img className='max-w-14 inline' src={handIcon} alt="handicon" />
             <br />
             collections <br />for everyone</p>
@@ -19,7 +19,7 @@ export const Hero = () => {
             </div>
         </div>
         <div>
-          <img className='max-w-[390px]'  src={hero} alt="hero_image" />
+          <img className='min-w-full md:w-96'   src={hero} alt="hero_image" />
         </div>
       </div>
     </>

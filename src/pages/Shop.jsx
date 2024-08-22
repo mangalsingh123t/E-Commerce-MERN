@@ -10,8 +10,8 @@ export const Shop = () => {
     <Hero/>
     <Popular/>
      <Offers/>
-    {/* <NewCollection/>
-    <NewsLatter/>  */}
+     <NewCollection/>
+    <NewsLatter/> 
     </>
   )
 }

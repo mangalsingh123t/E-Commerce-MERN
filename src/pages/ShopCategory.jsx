@@ -13,7 +13,7 @@ export const ShopCategory = (props) => {
   return (
     <>
     <div>
-      <div>
+      <div className='container mx-auto mt-3'>
         {props.category === "men" ? (
           <img src={mens_banner} alt="Men's Banner" />
         ) : props.category === "women" ? (
@@ -24,19 +24,20 @@ export const ShopCategory = (props) => {
           ""
         )}
       </div>
-      <div className='flex justify-between'>
+      <div className='container mx-auto flex justify-between mt-4'>
       <div> <span className='font-bold'>Showing 1-12</span> out of 36 products </div>
-      <div>
-       <button>sort by </button><img className='inline' src={breadcrum_arrow} alt="sorting image" />
+      <div className='py-1 px-3 border border-gray-100 rounded-xl'>
+       <button  >sort by </button><img className='inline ' src={breadcrum_arrow} alt="sorting image" />
        </div> 
       </div>
-      <div className='grid grid-cols-4 gap-2 ms-5' >
+      <div  className="container mx-auto grid sm:grid-cols-2 md:grid-cols-4  gap-5 rounded-md  mt-3 pb-9  place-content-center" >
       {
         all_product.map((item, index) => {
           return item.category == props.category ? <Item key={index} id={item.id} name={item.name} image={item.image} new_price={item.new_price} old_price={item.old_price} /> : ""
         })
       }
       </div>
+     
       <div className='text-center'>
         <button className='bg-slate-100 text-black rounded-xl p-1 px-5'>Explore More</button>
       </div>

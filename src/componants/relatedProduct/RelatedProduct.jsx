@@ -5,17 +5,25 @@ import { Item } from "../items/Item"
 export const RelatedProduct = () => {
     return (
       <>
-        <div className="mt-5">
-          <h1 className="font-bold text-center text-5xl ">Related Products</h1>
-          <hr className="m-auto w-52 h-1 bg-black mt-[15px]"/>
-          <div className="flex md:flex-row sm:flex-col  gap-7 ms-20 me-20 mt-[15px] pb-9">
-            {
-              data_product.map((item,index)=>{
-               return <Item key={index} id={item.id} image = {item.image} name = {item.name} new_price = {item.new_price} old_price = {item.old_price}/>
-              })
-            }
-          </div>
+       <div>
+        <h1 className="font-bold text-center text-5xl pt-3">Related Product</h1>
+        <hr className="m-auto w-52 h-1 bg-black mt-3" />
+        <div className="container mx-auto grid sm:grid-cols-2 md:grid-cols-4  gap-5 rounded-md  mt-[15px] pb-9  place-content-center">
+          {data_product.map((item, index) => {
+            return (
+              <Item 
+                key={index}
+                id={item.id}
+                image={item.image}
+                name={item.name}
+                new_price={item.new_price}
+                old_price={item.old_price}
+              />
+            );
+          })}
         </div>
+
+      </div>
       </>
     )
   } 

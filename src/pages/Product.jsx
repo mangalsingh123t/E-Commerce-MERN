@@ -11,11 +11,11 @@ export const Product = () => {
   const product = all_product.find((e) => e.id == Number(productId))
   return (
     <>
-      <div className="mx-28">
+      <div className="container mx-auto">
         <BreadCrum product={product} />
          <ProductDisplay product={product} />
-        {/* <DescriptionBox/>
-        <RelatedProduct/> */}
+        <DescriptionBox/>
+        <RelatedProduct/> 
       </div>
     </>
   )

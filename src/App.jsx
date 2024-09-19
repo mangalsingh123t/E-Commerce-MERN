@@ -3,10 +3,11 @@ import { Navbar } from './componants/navbar/Navbar'
 import { Shop } from './pages/Shop'
 import { Card } from './pages/Card'
 import { Product } from './pages/Product'
-import { LoginSignup } from './pages/LoginSignup'
+import { Login } from './pages/Login'
 import { ShopCategory } from './pages/ShopCategory'
 import { BrowserRouter, Route, Routes, } from "react-router-dom";
 import { Footer } from './componants/footer/Footer'
+import { Signup } from './pages/Signup'
 
 function App() {
 
@@ -23,7 +24,8 @@ function App() {
           <Route path='/product' element={<Product />} />
           <Route path='/product/:productId' element={<Product />} />
           <Route path='/cart' element={<Card />} />
-          <Route path='/login' element={<LoginSignup />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup/>}/>
         </Routes>
         <Footer/>
       </BrowserRouter>

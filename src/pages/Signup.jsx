@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
 import { useFormik } from 'formik'
 import { SignUpValidationSchema } from "../utils/ValidationSchema";
+import axios from 'axios'
+
 export const Signup = () => {
 
   const formik = useFormik({
@@ -10,7 +12,15 @@ export const Signup = () => {
       password: '',
     },
     validationSchema: SignUpValidationSchema,
-    onSubmit: values => {
+    onSubmit: async values => {
+      try {
+        const response = await axios.post("http://localhost:9090/signup", values);
+        console.log('User created:', response.data);
+        // Handle success, e.g., redirect or show a success message
+      } catch (error) {
+        console.error('Error creating user:', error);
+        // Handle error, e.g., show an error message
+      }
       console.log(values)
     },
   });

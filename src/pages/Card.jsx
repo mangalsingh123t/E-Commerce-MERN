@@ -1,10 +1,9 @@
 import { useContext } from "react";
-import all_product from "../componants/assets/all_product";
 import { ShopContext } from "../componants/context/ShopContext";
 import cart_cross_icon from '../componants/assets/cart_cross_icon.png';
 
 export const Card = () => {
-  const { cartItems, removeFromCart, getTotalCartAmount } = useContext(ShopContext);
+  const { cartItems, removeFromCart, getTotalCartAmount ,allProducts} = useContext(ShopContext);
 
   return (
     <>
@@ -19,7 +18,7 @@ export const Card = () => {
         </div>
         <hr className="my-4" />
         <div>
-          {all_product.map((item, index) => {
+          {allProducts.map((item, index) => {
             if (cartItems[item.id] > 0) {
               return (
                 <div key={index} className="grid grid-cols-6 gap-4 items-center text-center">

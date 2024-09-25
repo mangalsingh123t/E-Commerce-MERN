@@ -3,8 +3,9 @@ import { ShopContext } from "../componants/context/ShopContext";
 import cart_cross_icon from '../componants/assets/cart_cross_icon.png';
 
 export const Card = () => {
-  const { cartItems, removeFromCart, getTotalCartAmount ,allProducts} = useContext(ShopContext);
-
+  const {allProducts, cartItems,removeFromCart, getTotalCartAmount} = useContext(ShopContext);
+  console.log(cartItems)
+  console.log(allProducts)
   return (
     <>
       <div className="container mx-auto px-4">
@@ -18,7 +19,7 @@ export const Card = () => {
         </div>
         <hr className="my-4" />
         <div>
-          {allProducts.map((item, index) => {
+          {allProducts?.products?.map((item, index) => {
             if (cartItems[item.id] > 0) {
               return (
                 <div key={index} className="grid grid-cols-6 gap-4 items-center text-center">
@@ -45,7 +46,7 @@ export const Card = () => {
             <div className="text-xl font-semibold">Cart Details</div>
             <div className="flex justify-between pt-2">
               <div>Sub Total</div>
-              <div>$0</div>
+              <div>${getTotalCartAmount()}</div>
             </div>
             <hr />
             <div className="flex justify-between pt-2">

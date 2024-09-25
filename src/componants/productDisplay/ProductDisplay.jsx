@@ -11,16 +11,16 @@ export const ProductDisplay = (props) => {
         <>
      <div className="grid grid-cols-12 mt-5 gap-4">
     <div className='col-span-12 sm:col-span-2 md:col-span-1'>
-        <img className="w-20 hidden sm:block mb-2" src={product.image} alt="product_image" />
-        <img className="w-20 hidden sm:block mb-2" src={product.image} alt="product_image" />
-        <img className="w-20 hidden sm:block mb-2" src={product.image} alt="product_image" />
-        <img className="w-20 hidden sm:block mb-2" src={product.image} alt="product_image" />
+        <img className="w-20 hidden sm:block mb-2" src={product?.image} alt="product_image" />
+        <img className="w-20 hidden sm:block mb-2" src={product?.image} alt="product_image" />
+        <img className="w-20 hidden sm:block mb-2" src={product?.image} alt="product_image" />
+        <img className="w-20 hidden sm:block mb-2" src={product?.image} alt="product_image" />
     </div>
     <div className='col-span-12 sm:col-span-10 md:col-span-4'>
-        <img src={product.image} alt="product_image" />
+        <img src={product?.image} alt="product_image" />
     </div>
     <div className='col-span-12 md:col-span-7'>
-        <h1 className="text-2xl font-bold ">{product.name}</h1>
+        <h1 className="text-2xl font-bold ">{product?.name}</h1>
         <div className='flex mt-3'>
             <img src={star_icon} alt="start_icon" />
             <img src={star_icon} alt="start_icon" />
@@ -30,8 +30,8 @@ export const ProductDisplay = (props) => {
             <div>(122)</div>
         </div>
         <div className='mt-3'>
-            <span className='pe-2 '>${product.new_price}</span>
-            <span>${product.old_price}</span>
+            <span className='pe-2 '>${product?.new_price}</span>
+            <span>${product?.old_price}</span>
         </div>
         <p className='mt-3'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas mollitia aperiam quaerat.</p>
         <div className='mt-3'>
@@ -43,7 +43,7 @@ export const ProductDisplay = (props) => {
             <button className='text-black py-1 px-3 bg-gray-100 me-1'>XXL</button>
         </div>
         <button className='bg-red-500 px-3 py-2 mt-3' onClick={()=>addToCart(product.id)}>ADD TO CART</button>
-        <div className='mt-3'><span className='font-semibold text-sm '>Category:</span><span className='text-sm'>{product.category}</span></div>
+        <div className='mt-3'><span className='font-semibold text-sm '>Category:</span><span className='text-sm'>{product?.category}</span></div>
         <div><span className='font-semibold text-sm'>Tags:</span><span className='text-sm'>Modern Latest</span></div>
     </div>
 </div>

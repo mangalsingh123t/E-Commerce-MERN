@@ -8,7 +8,7 @@ export const Card = () => {
   console.log(allProducts)
   return (
     <>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 mt-5">
         <div className="grid grid-cols-6 sm:gap-4 text-center font-semibold">
           <div className="text-xs md:text-base">Products</div>
           <div className="text-xs md:text-base">Title</div>

@@ -2,9 +2,10 @@ import { Link } from "react-router-dom"
 import { useFormik } from 'formik'
 import { SignUpValidationSchema } from "../utils/ValidationSchema";
 import axios from 'axios'
+import { useState } from "react";
 
 export const Signup = () => {
-
+  const [loading, setLoading] = useState(false);
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -12,16 +13,20 @@ export const Signup = () => {
       password: '',
     },
     validationSchema: SignUpValidationSchema,
-    onSubmit: async values => {
+    onSubmit: async (values,{resetForm}) => {
+      setLoading(true); // Set loading to true when form is being submitted
       try {
         const response = await axios.post("http://localhost:9090/signup", values);
         console.log('User created:', response.data);
+        resetForm()
         // Handle success, e.g., redirect or show a success message
       } catch (error) {
         console.error('Error creating user:', error);
         // Handle error, e.g., show an error message
       }
-      console.log(values)
+      finally {
+        setLoading(false); // Stop the loading animation after signup is complete
+      }
     },
   });
 
@@ -39,7 +44,13 @@ export const Signup = () => {
               </div>
               <div className="pt-5"><input className="font-serif pe-40 ps-1 pt-1 pb-1 border border-gray-300 outline-none rounded-md" type="password" placeholder="Password" name="password" {...formik.getFieldProps('password')} />
                 {formik.touched && formik.errors ? <div className="text-red-400 text-xs">{formik.errors.password}</div> : null}</div>
-              <div className="pt-5 "><button type="submit" className=" bg-red-500 pt-1 ps-36 pe-32 rounded-lg  text-white font-normal" >Continue</button></div>
+              <div className="pt-5 "> <button
+                  type="submit"
+                  className={`bg-red-500 pt-1 ps-36 pe-32 rounded-lg text-white font-normal ${loading ? 'animate-pulse' : ''}`}
+                  disabled={loading} // Disable button while loading
+                >
+                  {loading ? 'Signing Up...' : 'Continue'}
+                </button></div>
               <div className="pt-2">
                 <span className="text-sm">Already have an account?</span>
                 <Link to={"/login"}><button className="text-red-900 text-sm ps-1" >Click here</button></Link>

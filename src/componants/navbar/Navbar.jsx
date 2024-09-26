@@ -6,12 +6,13 @@ import { Link } from 'react-router-dom';
 import {ShopContext} from '../context/ShopContext'
 export const Navbar = () => {
     const [menu, setMenu] = useState("shop");
-    const { getTotalCartCount, loginStatus, setLoginStatus } = useContext(ShopContext); // Get login status
+    const { getTotalCartCount, loginStatus ,logout } = useContext(ShopContext); // Get login status
     const [isMenuOpen, toggleMenu] = useState(false);
 
     const handleLogout = () => {
-        localStorage.removeItem("auth-token");
-        setLoginStatus(false); // Update context login status
+        logout()
+        // localStorage.removeItem("auth-token");
+        // setLoginStatus(false); // Update context login status
     };
 
     return (

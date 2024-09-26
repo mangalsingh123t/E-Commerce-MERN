@@ -42,7 +42,7 @@ const ShopContextProvider = (props) => {
 
     useEffect(() => {
         fetchProducts();
-    }, []);
+    }, [loginStatus]);
 
     const addToCart = async (itemId) => {
         setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
@@ -95,6 +95,12 @@ const ShopContextProvider = (props) => {
         return totalCartCount;
     };
 
+    const logout = () => {
+        localStorage.removeItem("auth-token");
+        setCartItems(getDefaultCart()); // Clear cart data on logout
+        setLoginStatus(false); // Update login status
+    };
+
     const contextValue = { 
         allProducts, 
         cartItems, 
@@ -103,7 +109,8 @@ const ShopContextProvider = (props) => {
         getTotalCartAmount, 
         getTotalCartCount, 
         loginStatus, 
-        setLoginStatus // Expose login status and setter
+        setLoginStatus,
+        logout // Expose the logout function
     };
 
     return (

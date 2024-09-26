@@ -32,6 +32,11 @@ export const Login = () => {
         
         // Update the login status using the context function
         setLoginStatus(true);
+
+        setUserData({
+          email: "",
+          password: ""
+        });
         
         // Navigate to home or another page after successful login
         navigate("/", { replace: true });

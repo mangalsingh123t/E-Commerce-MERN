@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 export const ShopContext = createContext(null);
 
 const getDefaultCart = () => {
@@ -13,7 +12,6 @@ const getDefaultCart = () => {
 }
 
 const ShopContextProvider = (props) => {
-    const navigate = useNavigate()
     const [allProducts, setAllProducts] = useState([]);
     const [cartItems, setCartItems] = useState(getDefaultCart());
     const [loginStatus, setLoginStatus] = useState(!!localStorage.getItem("auth-token")); // New state for login status
@@ -58,9 +56,6 @@ const ShopContextProvider = (props) => {
                 console.log(error);
             }
         }  
-        else{
-            navigate("/login")
-        }      
     };
 
     const removeFromCart = async (itemId) => {

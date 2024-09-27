@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useFormik } from 'formik'
 import { SignUpValidationSchema } from "../utils/ValidationSchema";
 import axios from 'axios'
@@ -6,6 +6,7 @@ import { useState } from "react";
 
 export const Signup = () => {
   const [loading, setLoading] = useState(false);
+  const navigate=useNavigate()
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -17,6 +18,7 @@ export const Signup = () => {
       setLoading(true); // Set loading to true when form is being submitted
       try {
         const response = await axios.post("http://localhost:9090/signup", values);
+          navigate("/login")
         console.log('User created:', response.data);
         resetForm()
         // Handle success, e.g., redirect or show a success message

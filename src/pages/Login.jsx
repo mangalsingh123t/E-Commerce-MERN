@@ -46,7 +46,7 @@ export const Login = () => {
       }
     } catch (error) {
       console.log("Login error", error);
-      setErrorMessage("Something went wrong. Please try again later.");
+      setErrorMessage("envalid email or password");
     }
     setLoading(false); // Stop loading
   };

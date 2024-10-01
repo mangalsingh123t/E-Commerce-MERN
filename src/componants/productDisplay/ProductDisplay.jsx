@@ -40,10 +40,9 @@ export const ProductDisplay = (props) => {
                         <span className='pe-2 '>${product?.new_price}</span>
                         <span className='line-through text-slate-400'>${product?.old_price}</span>
                     </div>
-                    <p className='mt-3'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas mollitia aperiam quaerat.</p>
-                    <div className='mt-3'>
+                    <p className='mt-3'>Voluptas mollitia aperiam quaerat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, repudiandae necessitatibus explicabo dolorum laboriosam laudantium earum possimus quasi aut maxime exercitationem unde consequuntur eveniet in fuga ea blanditiis quibusdam enim.</p>
+                    {/* <div className='mt-3'>
                         <div>Select Size</div>
-                        {/* Size buttons */}
                         {['S', 'M', 'L', 'XL', 'XXL'].map((size) => (
                             <button
                                 key={size}
@@ -52,7 +51,7 @@ export const ProductDisplay = (props) => {
                                 {size}
                             </button>
                         ))}
-                    </div>
+                    </div> */}
                     {/* Add to Cart button */}
                     <button
                         className='bg-red-500 text-white px-4 py-2 mt-3 rounded-md font-semibold shadow-md hover:bg-red-600 transition-colors duration-200 ease-in-out hover:shadow-lg'

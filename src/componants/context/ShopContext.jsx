@@ -2,6 +2,7 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 export const ShopContext = createContext(null);
+import { PopupModal } from "../popupModal/PopupModal";
 
 const getDefaultCart = () => {
     let cart = {};
@@ -15,6 +16,7 @@ const ShopContextProvider = (props) => {
     const [allProducts, setAllProducts] = useState([]);
     const [cartItems, setCartItems] = useState(getDefaultCart());
     const [loginStatus, setLoginStatus] = useState(!!localStorage.getItem("auth-token")); // New state for login status
+    const [showModal, setShowModal] = useState(false);
 
     const token = localStorage.getItem("auth-token");
 
@@ -52,10 +54,14 @@ const ShopContextProvider = (props) => {
                         'auth-token': token
                     }
                 });
-            } catch (error) {
+            }
+            catch (error) {
                 console.log(error);
             }
         }  
+        else{
+           setShowModal(true)
+        }
     };
 
     const removeFromCart = async (itemId) => {
@@ -111,10 +117,18 @@ const ShopContextProvider = (props) => {
         setLoginStatus,
         logout // Expose the logout function
     };
-
+    
     return (
         <ShopContext.Provider value={contextValue}>
             {props.children}
+                {/* Render the PopupModal conditionally */}
+                {showModal && (
+                <PopupModal
+                    show={showModal}
+                    onClose={() => setShowModal(false)}
+                    message="Please log in first to add items to the cart."
+                />
+            )}
         </ShopContext.Provider>
     );
 };

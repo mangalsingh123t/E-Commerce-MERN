@@ -1,12 +1,80 @@
-import { useContext } from "react";
-import { ShopContext } from "../componants/context/ShopContext";
+import  { useState, useContext } from 'react';
+import { ShopContext } from '../componants/context/ShopContext';
 import cart_cross_icon from '../componants/assets/cart_cross_icon.png';
+import axios from 'axios';
+import { PopupModal } from '../componants/popupModal/PopupModal'; // Import the modal component
 
 export const Card = () => {
   const { allProducts, cartItems, removeFromCart, getTotalCartAmount } = useContext(ShopContext);
 
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [modalMessage, setModalMessage] = useState(''); // State for the message in the modal
+
+  // Function to load the Razorpay script
+  const loadRazorpayScript = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  // Function to handle payment using Razorpay
+  const handlePayment = async () => {
+    const isLoaded = await loadRazorpayScript();
+
+    if (!isLoaded) {
+      alert('Failed to load Razorpay SDK');
+      return;
+    }
+
+    // Create order on the backend
+    const orderResponse = await axios.post('http://localhost:9090/api/razorpay/create-order', {
+      amount: getTotalCartAmount(), // Total amount to be paid
+    });
+
+    const { orderId } = orderResponse.data;
+
+    // Razorpay options
+    const options = {
+      key: 'rzp_test_FzNm8xwjZR6SCt', // Replace with your Razorpay key ID
+      amount: getTotalCartAmount() * 100, // Amount in paise (INR smallest unit)
+      currency: 'INR',
+      name: 'ShopEase',
+      description: 'Payment',
+      order_id: orderId, // Razorpay order ID from the backend
+      handler: function (response) {
+        // Payment success handler
+        setModalMessage(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
+        setShowModal(true); // Show the modal when payment is successful
+      },
+      prefill: {
+        name: 'Customer Name',
+        email: 'mangal@.com',
+        contact: '6267058448',
+      },
+      theme: {
+        color: '#F37254',
+      },
+    };
+
+    // Open Razorpay payment modal
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
+
   return (
     <>
+      {/* Popup Modal */}
+      <PopupModal
+        show={showModal}
+        onClose={() => setShowModal(false)} // Close the modal when the close button is clicked
+        message={modalMessage}
+      />
+
+      {/* Rest of your cart code */}
       <div className="container mx-auto px-4 mt-5">
         {/* Header */}
         <div className="grid grid-cols-6 sm:gap-4 text-center font-semibold">
@@ -18,7 +86,7 @@ export const Card = () => {
           <div className="text-xs md:text-base">Remove</div>
         </div>
         <hr className="my-4" />
-        
+
         {/* Cart Items */}
         <div>
           {allProducts?.products?.map((item, index) => {
@@ -29,9 +97,9 @@ export const Card = () => {
                     <img className="w-16 m-1" src={item.image} alt="cart_image" />
                   </div>
                   <p>{item.name.slice(0, 15)}</p>
-                  <p>${item.new_price}</p>
+                  <p>{item.new_price}</p>
                   <button>{cartItems[item.id]}</button>
-                  <p>${item.new_price * cartItems[item.id]}</p>
+                  <p>{item.new_price * cartItems[item.id]}</p>
                   <div className="flex justify-center">
                     <img
                       onClick={() => removeFromCart(item.id)}
@@ -71,8 +139,11 @@ export const Card = () => {
             <hr />
 
             {/* Checkout Button */}
-            <button className="bg-red-500 p-3 rounded-md mt-4 text-white font-semibold hover:bg-red-600 transition-colors duration-200 ease-in-out shadow-md hover:shadow-lg">
-              PROCEED TO CHECKOUT
+            <button
+              onClick={handlePayment}
+              className="bg-red-500 p-3 rounded-md mt-4 text-white font-semibold hover:bg-red-600 transition-colors duration-200 ease-in-out shadow-md hover:shadow-lg"
+            >
+              Buy Now
             </button>
           </div>
 

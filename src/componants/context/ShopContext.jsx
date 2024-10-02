@@ -106,6 +106,24 @@ const ShopContextProvider = (props) => {
         setLoginStatus(false); // Update login status
     };
 
+    const handlePaymentSuccess = async () => {
+        try {
+          const response = await axios.post("http://localhost:9090/payment-success", "", {
+            headers: {
+              'auth-token': token
+            }
+          });
+      
+          if (response.data.success) {
+            // Clear the cart in frontend
+            setCartItems(getDefaultCart());
+            console.log("Cart cleared successfully!");
+          }
+        } catch (error) {
+          console.log("Failed to clear cart", error);
+        }
+      };
+
     const contextValue = { 
         allProducts, 
         cartItems, 
@@ -115,9 +133,12 @@ const ShopContextProvider = (props) => {
         getTotalCartCount, 
         loginStatus, 
         setLoginStatus,
-        logout // Expose the logout function
+        logout,
+        handlePaymentSuccess
     };
     
+   
+
     return (
         <ShopContext.Provider value={contextValue}>
             {props.children}

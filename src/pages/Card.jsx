@@ -5,7 +5,7 @@ import axios from 'axios';
 import { PopupModal } from '../componants/popupModal/PopupModal'; // Import the modal component
 
 export const Card = () => {
-  const { allProducts, cartItems, removeFromCart, getTotalCartAmount } = useContext(ShopContext);
+  const { allProducts, cartItems, removeFromCart, getTotalCartAmount,handlePaymentSuccess } = useContext(ShopContext);
 
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const [modalMessage, setModalMessage] = useState(''); // State for the message in the modal
@@ -49,6 +49,7 @@ export const Card = () => {
         // Payment success handler
         setModalMessage(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
         setShowModal(true); // Show the modal when payment is successful
+         handlePaymentSuccess()
       },
       prefill: {
         name: 'Customer Name',
@@ -124,7 +125,7 @@ export const Card = () => {
             <div className="text-xl font-semibold">Cart Details</div>
             <div className="flex justify-between pt-2">
               <div>Sub Total</div>
-              <div>${getTotalCartAmount()}</div>
+              <div>{getTotalCartAmount()}</div>
             </div>
             <hr />
             <div className="flex justify-between pt-2">
@@ -134,7 +135,7 @@ export const Card = () => {
             <hr />
             <div className="flex justify-between pt-2">
               <div>Total</div>
-              <div>${getTotalCartAmount()}</div>
+              <div>{getTotalCartAmount()}</div>
             </div>
             <hr />
 

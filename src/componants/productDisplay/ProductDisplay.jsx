@@ -3,10 +3,22 @@ import star_icon from '../assets/star_icon.png';
 import star_dull_icon from '../assets/star_dull_icon.png';
 import { useContext } from 'react';
 import { ShopContext } from '../context/ShopContext';
+import {useNavigate} from 'react-router-dom'
 
 export const ProductDisplay = (props) => {
     const { product } = props;
     const { addToCart } = useContext(ShopContext);
+    const navigate=useNavigate()
+
+   const addProductToCart = (id) =>{
+   const token = localStorage.getItem('auth-token')
+   if (token) {
+    addToCart(id)
+   }
+   else{
+  navigate("/login")
+   }
+    }
 
     return (
         <>
@@ -55,7 +67,7 @@ export const ProductDisplay = (props) => {
                     {/* Add to Cart button */}
                     <button
                         className='bg-red-500 text-white px-4 py-2 mt-3 rounded-md font-semibold shadow-md hover:bg-red-600 transition-colors duration-200 ease-in-out hover:shadow-lg'
-                        onClick={() => addToCart(product.id)}
+                        onClick={() => addProductToCart(product.id)}
                     >
                         ADD TO CART
                     </button>

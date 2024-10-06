@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import star_icon from '../assets/star_icon.png';
 import star_dull_icon from '../assets/star_dull_icon.png';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import {useNavigate} from 'react-router-dom'
 
@@ -9,11 +9,18 @@ export const ProductDisplay = (props) => {
     const { product } = props;
     const { addToCart } = useContext(ShopContext);
     const navigate=useNavigate()
+    const [loading, setLoading] = useState(false); // Loading state
 
    const addProductToCart = (id) =>{
    const token = localStorage.getItem('auth-token')
    if (token) {
+    setLoading(true); // Set loading state to true
     addToCart(id)
+     // Simulate a delay for the loading effect
+     setTimeout(() => {
+        setLoading(false); // Reset loading state after the operation
+        navigate("/cart")
+    }, 1000); // Adjust time as needed
    }
    else{
   navigate("/login")
@@ -66,10 +73,21 @@ export const ProductDisplay = (props) => {
                     </div> */}
                     {/* Add to Cart button */}
                     <button
-                        className='bg-red-500 text-white px-4 py-2 mt-3 rounded-md font-semibold shadow-md hover:bg-red-600 transition-colors duration-200 ease-in-out hover:shadow-lg'
+                        className={`bg-red-500 text-white px-4 py-2 mt-3 rounded-md font-semibold shadow-md hover:bg-red-600 transition-colors duration-200 ease-in-out hover:shadow-lg ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         onClick={() => addProductToCart(product.id)}
+                        disabled={loading} // Disable button when loading
                     >
-                        ADD TO CART
+                        {loading ? (
+                            <span className="flex items-center justify-center">
+                                <svg className="animate-spin h-5 w-5 mr-3 text-white" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v3a5 5 0 00-5 5H4z"></path>
+                                </svg>
+                                Going to Cart
+                            </span>
+                        ) : (
+                            'ADD TO CART'
+                        )}
                     </button>
                     <div className='mt-3'>
                         <span className='font-semibold text-sm '>Category:</span>

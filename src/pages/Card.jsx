@@ -26,45 +26,51 @@ export const Card = () => {
     const isLoaded = await loadRazorpayScript();
 
     if (!isLoaded) {
-      alert('Failed to load Razorpay SDK');
-      return;
+        alert('Failed to load Razorpay SDK');
+        return;
+    }
+
+    const totalAmount = getTotalCartAmount(); // Get total amount in rupees
+
+    if (totalAmount < 1) { // Check if total amount is less than ₹1
+        alert('Total amount must be at least ₹1 to proceed with payment.');
+        return;
     }
 
     // Create order on the backend
     const orderResponse = await axios.post('http://localhost:9090/api/razorpay/create-order', {
-      amount: getTotalCartAmount(), // Total amount to be paid
+        amount: totalAmount, // Total amount in rupees
     });
 
     const { orderId } = orderResponse.data;
 
     // Razorpay options
     const options = {
-      key: 'rzp_test_FzNm8xwjZR6SCt', // Replace with your Razorpay key ID
-      amount: getTotalCartAmount() * 100, // Amount in paise (INR smallest unit)
-      currency: 'INR',
-      name: 'ShopEase',
-      description: 'Payment',
-      order_id: orderId, // Razorpay order ID from the backend
-      handler: function (response) {
-        // Payment success handler
-        setModalMessage(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
-        setShowModal(true); // Show the modal when payment is successful
-         handlePaymentSuccess()
-      },
-      prefill: {
-        name: 'Customer Name',
-        email: 'mangal@.com',
-        contact: '6267058448',
-      },
-      theme: {
-        color: '#F37254',
-      },
+        key: 'rzp_test_FzNm8xwjZR6SCt', // Your Razorpay key ID
+        amount: totalAmount * 100, // Convert to paise for Razorpay
+        currency: 'INR',
+        name: 'SHOPPER',
+        description: 'Payment',
+        order_id: orderId, // Razorpay order ID from the backend
+        handler: function (response) {
+            setModalMessage(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
+            setShowModal(true);
+            handlePaymentSuccess();
+        },
+        prefill: {
+            name: 'Customer Name',
+            email: 'mangal@.com',
+            contact: '6267058448',
+        },
+        theme: {
+            color: '#F37254',
+        },
     };
 
-    // Open Razorpay payment modal
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
-  };
+};
+
 
   return (
     <>
@@ -98,9 +104,9 @@ export const Card = () => {
                     <img className="w-16 m-1" src={item.image} alt="cart_image" />
                   </div>
                   <p>{item.name.slice(0, 15)}</p>
-                  <p>{item.new_price}</p>
+                  <p>₹{item.new_price}</p>
                   <button>{cartItems[item.id]}</button>
-                  <p>{item.new_price * cartItems[item.id]}</p>
+                  <p>₹{item.new_price * cartItems[item.id]}</p>
                   <div className="flex justify-center">
                     <img
                       onClick={() => removeFromCart(item.id)}
@@ -125,7 +131,7 @@ export const Card = () => {
             <div className="text-xl font-semibold">Cart Details</div>
             <div className="flex justify-between pt-2">
               <div>Sub Total</div>
-              <div>{getTotalCartAmount()}</div>
+              <div>₹{getTotalCartAmount()}</div>
             </div>
             <hr />
             <div className="flex justify-between pt-2">
@@ -135,7 +141,7 @@ export const Card = () => {
             <hr />
             <div className="flex justify-between pt-2">
               <div>Total</div>
-              <div>{getTotalCartAmount()}</div>
+              <div>₹{getTotalCartAmount()}</div>
             </div>
             <hr />
 

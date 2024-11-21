@@ -29,7 +29,7 @@ export const Login = () => {
       if (response.data.success) {
         // Store the token in localStorage
         localStorage.setItem("auth-token", response.data.token);
-        
+
         // Update the login status using the context function
         setLoginStatus(true);
 
@@ -37,9 +37,12 @@ export const Login = () => {
           email: "",
           password: ""
         });
-        
-        // Navigate to home or another page after successful login
-        navigate("/", { replace: true });
+        if (response.data.role === "admin") {
+          window.open("http://localhost:5174/addproduct", "_blank"); // Opens in a new tab
+        } else {
+          // Navigate to home or another page after successful login
+          navigate("/", { replace: true });
+        }
       } else {
         // Handle error messages from the backend
         setErrorMessage(response.data.error || "Login failed");
@@ -59,27 +62,27 @@ export const Login = () => {
 
           {/* Email Input */}
           <div className="pt-3">
-            <input 
+            <input
               className="font-serif pe-40 ps-1 pt-1 pb-1 border border-gray-300 outline-none rounded-md"
-              type="email" 
-              name="email" 
-              value={userData.email} 
-              placeholder="Email" 
-              onChange={changeHandler} 
-              required 
+              type="email"
+              name="email"
+              value={userData.email}
+              placeholder="Email"
+              onChange={changeHandler}
+              required
             />
           </div>
 
           {/* Password Input */}
           <div className="pt-5">
-            <input 
-              className="font-serif pe-40 ps-1 pt-1 pb-1 border border-gray-300 outline-none rounded-md" 
-              type="password" 
-              name="password" 
-              value={userData.password} 
-              placeholder="Password" 
-              onChange={changeHandler} 
-              required 
+            <input
+              className="font-serif pe-40 ps-1 pt-1 pb-1 border border-gray-300 outline-none rounded-md"
+              type="password"
+              name="password"
+              value={userData.password}
+              placeholder="Password"
+              onChange={changeHandler}
+              required
             />
           </div>
 
@@ -92,7 +95,7 @@ export const Login = () => {
 
           {/* Submit Button */}
           <div className="pt-5">
-            <button 
+            <button
               className={`bg-red-500 pt-1 ps-36 pe-32 rounded-lg text-white font-normal ${loading && "opacity-50 cursor-not-allowed"}`}
               onClick={submitHandler}
               disabled={loading} // Disable button during loading
@@ -110,12 +113,12 @@ export const Login = () => {
           </div>
 
           {/* Terms & Privacy Policy Checkbox */}
-          <div className="pt-1">
+          {/* <div className="pt-1">
             <input type="checkbox" className="text-sm" required />
-            <span className="text-sm ps-2">
+            /* <span className="text-sm ps-2">
               By Continuing, I agree to the terms & privacy policy
-            </span>
-          </div>
+            </span> 
+          </div> */}
         </div>
       </div>
     </div>

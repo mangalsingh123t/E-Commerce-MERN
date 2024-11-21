@@ -19,8 +19,8 @@ export const Item = (props) => {
         
         {/* Product Price */}
         <p>
-          <span className="px-1">${props.new_price}</span>
-          <span className="px-1 line-through text-slate-400">${props.old_price}</span>
+          <span className="px-1">₹{props.new_price}</span>
+          <span className="px-1 line-through text-slate-400">₹{props.old_price}</span>
         </p>
       </div>
     </>

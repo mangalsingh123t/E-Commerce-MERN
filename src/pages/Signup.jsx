@@ -57,10 +57,10 @@ export const Signup = () => {
                 <span className="text-sm">Already have an account?</span>
                 <Link to={"/login"}><button className="text-red-900 text-sm ps-1" >Click here</button></Link>
               </div>
-              <div className="pt-1">
+              {/* <div className="pt-1">
                 <input type="checkbox" className="text-sm" />
                 <span className=" text-sm ps-2">By Continuing  i agree to the terms & privacy policy</span>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
